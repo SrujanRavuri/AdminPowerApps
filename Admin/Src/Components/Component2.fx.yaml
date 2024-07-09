@@ -29,7 +29,7 @@ Component2 As CanvasComponent:
         LoadingSpinner: =LoadingSpinner.Data
         TemplateSize: =382
         Width: =404
-        X: =84
-        Y: =158
+        X: =150
+        Y: =160
         ZIndex: =3
 
