@@ -22,7 +22,7 @@ Screen1 As screen:
             OnSelect: =Select(Parent)
             Text: ="This is My Label"
             X: =2
-            Y: =40
+            Y: =50
             ZIndex: =1
 
         Label2 As label:
