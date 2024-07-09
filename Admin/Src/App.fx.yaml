@@ -6,6 +6,6 @@ App As appinfo:
         OnCancel: =false
         OnEdit: =false
         OnNew: =false
-        OnSave: =false
-        OnView: =false
+        OnSave: =true
+        OnView: =true
 
