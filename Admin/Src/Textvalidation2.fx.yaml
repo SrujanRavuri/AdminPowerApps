@@ -7,11 +7,11 @@ Textvalidation2 As screen:
 
     Gallery1_1 As gallery.galleryHorizontal:
         DelayItemLoading: =true
-        Height: =768
+        Height: =500
         Items: =Horgal
         LoadingSpinner: =LoadingSpinner.Data
         TemplateSize: =159
-        Width: =1142
+        Width: =1000
         X: =14
         ZIndex: =1
 
