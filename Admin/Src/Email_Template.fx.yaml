@@ -1,0 +1,240 @@
+Email_Template As screen:
+
+    Cont_View_ET As groupContainer.manualLayoutContainer:
+        Height: =312
+        Width: =1135
+        X: =88
+        Y: =118
+        ZIndex: =2
+
+        "Gal_EmailList_ET As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+            '#CopilotOverlayLabel': ="Filtered"
+            DelayItemLoading: =true
+            Height: =184
+            Items: =ConfigList
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =66
+            Width: =663
+            X: =12
+            Y: =98
+            ZIndex: =1
+
+            lbl_TempName_Gal_ET As label:
+                OnSelect: =Select(Parent)
+                Text: =ThisItem.ConfigKey
+                X: =7
+                Y: =14
+                ZIndex: =1
+
+            lbl_EmailFormat_Gal_ET As label:
+                OnSelect: =Select(Parent)
+                Text: =
+                Width: =217
+                Wrap: =false
+                X: =242
+                Y: =14
+                ZIndex: =2
+
+            Icn_Edit_ET As icon.Edit:
+                Height: =40
+                Icon: =Icon.Edit
+                OnSelect: |-
+                    =Set(EmailTemplate,ThisItem);
+                    Set(IsUpdate, true);
+                    Set(IsAdd, false);
+                Width: =39
+                X: =509
+                Y: =14
+                ZIndex: =3
+
+            Icn_Del_ET As icon.Trash:
+                DisabledBorderColor: =RGBA(77, 77, 77, 1)
+                DisplayMode: =If(ThisItem.Status="In Active",DisplayMode.Edit, DisplayMode.Disabled)
+                Height: =40
+                Icon: =Icon.Trash
+                OnSelect: |-
+                    =RemoveIf(ConfigList,ID=ThisItem.ID);
+                    Notify(
+                        "The Template has been deleted",
+                        NotificationType.Success
+                    );
+                Width: =43
+                X: =583
+                Y: =14
+                ZIndex: =4
+
+            HtmlText1 As htmlViewer:
+                HtmlText: =ThisItem.ConfigValue
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                X: =217
+                Y: =14
+                ZIndex: =5
+
+        lbl_TempName_ET As label:
+            Text: ="Template Name"
+            X: =12
+            Y: =40
+            ZIndex: =2
+
+        lbl_EmailFormat_ET As label:
+            Text: ="Email Format"
+            X: =250
+            Y: =40
+            ZIndex: =3
+
+        Btn_AddTemp_ET As button:
+            OnSelect: |-
+                =Set(IsAdd, true);
+                Set(IsUpdate, false);
+                Set(EmailTemplate,Blank());
+                Reset(Radio_Status_ET);
+            Text: ="Add Template"
+            X: =515
+            Y: =40
+            ZIndex: =4
+
+        Rectangle2 As rectangle:
+            Height: =2
+            Width: =663
+            X: =12
+            Y: =96
+            ZIndex: =5
+
+    Cont_AddUpdate_ET As groupContainer.manualLayoutContainer:
+        Height: =290
+        Visible: =If(IsAdd || IsUpdate,true,false)
+        Width: =1135
+        X: =88
+        Y: =430
+        ZIndex: =3
+
+        lbl_TempName_AU_ET As label:
+            Text: ="Template Name"
+            X: =24
+            Y: =16
+            ZIndex: =1
+
+        TI_TempName_ET As text:
+            Default: =If(!IsBlank(EmailTemplate.ConfigKey),EmailTemplate.ConfigKey)
+            DisplayMode: =If(IsUpdate,DisplayMode.Disabled,DisplayMode.Edit)
+            X: =222
+            Y: =16
+            ZIndex: =2
+
+        lbl_EmailFormat_AU_ET As label:
+            Text: ="Email Format"
+            X: =24
+            Y: =80
+            ZIndex: =3
+
+        Btn_Save_ET As button:
+            DisplayMode: =If(IsAdd,DisplayMode.Edit, DisplayMode.Disabled)
+            OnSelect: |
+                =If(IsBlank(TI_TempName_ET.Text),
+                    Notify("Please Enter Template Name."),
+                        IsBlank(RichText_EmailFormat_ET.HtmlText),
+                            Notify("Please Enter Email Format."),
+                            ClearCollect(
+                                FilteredConfigKey,
+                                Filter(ConfigList,ConfigKey = TI_TempName_ET.Text)
+                            );
+                            CountRows(FilteredConfigKey)>0,
+                            Notify("Template Name is Already exist give other name"),
+                            Patch(
+                                ConfigList,
+                                Defaults(ConfigList),
+                                {
+                                    ConfigKey: TI_TempName_ET.Text,
+                                    ConfigValue: RichText_EmailFormat_ET.HtmlText,
+                                    Status: Radio_Status_ET.Selected.Value
+                                }
+                            );
+                            Notify("Mail Template Saved",NotificationType.Success);
+                            Set(IsAdd, false);
+                            Set(IsUpdate, false);
+                            Set(EmailTemplate,Blank());
+                            Reset(TI_TempName_ET);
+                            Reset(RichText_EmailFormat_ET);
+                            Reset(Radio_Status_ET);
+                );
+            Text: ="Save"
+            X: =952
+            Y: =16
+            ZIndex: =5
+
+        Btn_Cancel_ET As button:
+            OnSelect: |-
+                =Set(IsAdd, false);
+                Set(IsUpdate, false);
+                Set(EmailTemplate,Blank());
+                Reset(TI_TempName_ET);
+                Reset(RichText_EmailFormat_ET);
+                Reset(Radio_Status_ET);
+            Text: ="Cancel"
+            X: =952
+            Y: =80
+            ZIndex: =6
+
+        Btn_Update_ET As button:
+            DisplayMode: =If(IsUpdate,DisplayMode.Edit, DisplayMode.Disabled)
+            OnSelect: |+
+                =If(IsBlank(TI_TempName_ET.Text),
+                    Notify("Please Enter Template Name."),
+                    IsBlank(RichText_EmailFormat_ET.HtmlText),
+                    Notify("Please Enter Email Format."),
+                    Patch(
+                        ConfigList,
+                        LookUp(
+                            ConfigList,
+                            ID = EmailTemplate[@ID]
+                        ),
+                        {
+                            ConfigKey: TI_TempName_ET.Text,
+                            ConfigValue: RichText_EmailFormat_ET.HtmlText,
+                            Status: Radio_Status_ET.Selected.Value
+                        }
+                    );
+                    Notify("Mail Template Updated",NotificationType.Success);
+                    Set(IsAdd, false);
+                    Set(IsUpdate, false);
+                    Set(EmailTemplate,Blank());
+                    Reset(TI_TempName_ET);
+                    Reset(RichText_EmailFormat_ET);
+                    Reset(Radio_Status_ET);
+                );
+                
+                
+            Text: ="Update"
+            X: =764
+            Y: =16
+            ZIndex: =7
+
+        RichText_EmailFormat_ET As richTextEditor:
+            Default: =If(!IsBlank(EmailTemplate.ConfigValue),EmailTemplate.ConfigValue)
+            Height: =197
+            X: =222
+            Y: =80
+            ZIndex: =8
+
+        Radio_Status_ET As radio:
+            Default: =If(!IsBlank(EmailTemplate.Status),EmailTemplate.Status,"In Active")
+            Height: =64
+            Items: =["Active","In Active"]
+            Layout: =Layout.Horizontal
+            Width: =272
+            X: =748
+            Y: =213
+            ZIndex: =9
+
+        lbl_Status_ET As label:
+            Text: ="Status"
+            X: =748
+            Y: =173
+            ZIndex: =10
+

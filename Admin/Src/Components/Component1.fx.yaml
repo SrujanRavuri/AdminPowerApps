@@ -1,0 +1,21 @@
+Component1 As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =640
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Dropdown1 As dropdown:
+        Height: =38
+        Items: =DropDownSample
+        Width: =178
+        X: =21
+        Y: =261
+        ZIndex: =1
+
+    DatePicker1 As datepicker:
+        X: =40
+        Y: =40
+        ZIndex: =2
+

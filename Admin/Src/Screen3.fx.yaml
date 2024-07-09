@@ -1,0 +1,744 @@
+Screen3 As screen:
+    OnVisible: |-
+        =Set(varReset,true);
+        UpdateContext({MSAclear:If(IsBlank(MSAFilter),false,true),PropStateclear:If(IsBlank(PropStateFilter),false,true),PropCityclear:If(IsBlank(PropCityFilter),false,true),PropZipclear:If(IsBlank(PropZipFilter),false,true),PropertyTypeclear:If(IsBlank(PropertyTypeFilter),false,true),PropSubTypeclear:If(IsBlank(PropSubTypeFilter),false,true),UnitsTextclear:If(IsBlank(UnitsTextIn),false,true),YearTextclear:If(IsBlank(YearTextIn),false,true)});
+
+    NoOfUnitsDrop As dropdown:
+        Default: =UnitsFilter.Value
+        Items: =["Equal","GreaterThan","LessThan","Between"]
+        OnChange: =Set(UnitsFilter,NoOfUnitsDrop.SelectedText);
+        OnSelect: |-
+            =Set(UnitsTextIn,Blank());
+            Set(UnitsMaxIn,Blank());
+            Set(UnitsMinIn,Blank());
+            UpdateContext({UnitsTextclear:false});
+        Width: =165
+        X: =680
+        Y: =370
+        ZIndex: =7
+
+    YearBuiltDrop As dropdown:
+        Default: =YearsFilter.Value
+        Items: =["Equal","GreaterThan","LessThan","Between"]
+        OnChange: |-
+            =Set(YearsFilter,NoOfUnitsDrop.SelectedText);
+            UpdateContext({Yearsclear:If(IsBlank(YearsFilter),false,true)});
+        OnSelect: |
+            =Reset(YearsText_In);
+            Reset(YearsBetween_MaxIn);
+            Reset(YearsBetween_MinIn);
+            Set(YearTextIn,Blank());
+            Set(YearsMaxIn,Blank());
+            Set(YearsMinIn,Blank());
+            UpdateContext({YearTextclear:false})
+        Width: =153
+        X: =692
+        Y: =510
+        ZIndex: =8
+
+    Label7 As label:
+        FontWeight: =FontWeight.Bold
+        Text: ="MSA"
+        X: =40
+        Y: =112
+        ZIndex: =13
+
+    Label8 As label:
+        FontWeight: =FontWeight.Bold
+        Text: ="----OR----"
+        X: =147
+        Y: =248
+        ZIndex: =14
+
+    Label9 As label:
+        FontWeight: =FontWeight.Bold
+        Text: ="Property State"
+        X: =40
+        Y: =282
+        ZIndex: =15
+
+    Label10 As label:
+        FontWeight: =FontWeight.Bold
+        Text: ="Property City"
+        X: =40
+        Y: =399
+        ZIndex: =16
+
+    Label11 As label:
+        FontWeight: =FontWeight.Bold
+        Text: ="Property Zip"
+        X: =40
+        Y: =510
+        ZIndex: =17
+
+    Label12 As label:
+        FontWeight: =FontWeight.Bold
+        Text: ="Property Type"
+        X: =470
+        Y: =125
+        ZIndex: =18
+
+    Label13 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Text: ="Property SubType"
+        Width: =210
+        X: =470
+        Y: =227
+        ZIndex: =19
+
+    Label14 As label:
+        FontWeight: =FontWeight.Bold
+        Text: ="No Of Units"
+        X: =470
+        Y: =371
+        ZIndex: =20
+
+    Label15 As label:
+        FontWeight: =FontWeight.Bold
+        Text: ="Year Built "
+        X: =470
+        Y: =510
+        ZIndex: =21
+
+    ForSale As groupContainer.manualLayoutContainer:
+        Height: =60
+        Width: =175
+        X: =1027
+        Y: =145
+        ZIndex: =23
+
+        Sale As radio:
+            Default: =PropertyIsForsale.Value
+            Height: =59
+            Items: =["Yes","No"]
+            Layout: =Layout.Horizontal
+            OnChange: |-
+                =Set(PropertyIsForsale,Self.Selected);
+                UpdateContext({Saleclear:If(IsBlank(PropertyIsForsale),false,true)});
+            RadioSize: =20
+            Width: =175
+            ZIndex: =1
+
+    AffordableHousing As groupContainer.manualLayoutContainer:
+        Height: =60
+        Width: =175
+        X: =1029
+        Y: =282
+        ZIndex: =24
+
+        AffordableHouse As radio:
+            Default: =Affordablehousing.Value
+            Height: =63
+            Items: =["Yes","No"]
+            Layout: =Layout.Horizontal
+            OnChange: |-
+                =Set(Affordablehousing,Self.Selected);
+                UpdateContext({Affclear:If(IsBlank(Affordablehousing),false,true)});
+            RadioSize: =20
+            Width: =175
+            ZIndex: =1
+
+    Opportunityzone As groupContainer.manualLayoutContainer:
+        Height: =60
+        Width: =175
+        X: =1029
+        Y: =411
+        ZIndex: =25
+
+        OpportunityZone As radio:
+            Default: =OpportunityZonevalue.Value
+            Height: =61
+            Items: =["Yes","No"]
+            Layout: =Layout.Horizontal
+            RadioSize: =20
+            Width: =175
+            ZIndex: =1
+
+    DTS As groupContainer.manualLayoutContainer:
+        Height: =60
+        Width: =175
+        X: =1027
+        Y: =530
+        ZIndex: =26
+
+        DTSSelect As radio:
+            Default: =DTSvalue.Value
+            Height: =61
+            Items: =["Yes","No"]
+            Layout: =Layout.Horizontal
+            RadioSize: =20
+            Width: =175
+            ZIndex: =1
+
+    Label18 As label:
+        Text: ="Property Is For Sale"
+        Width: =177
+        X: =1027
+        Y: =105
+        ZIndex: =27
+
+    Label19 As label:
+        Text: ="Is Affordable Housing"
+        Width: =200
+        X: =1029
+        Y: =227
+        ZIndex: =28
+
+    Label21 As label:
+        Height: =37
+        Text: ="Is in opportunity zone"
+        Width: =197
+        X: =1027
+        Y: =370
+        ZIndex: =30
+
+    Label22 As label:
+        Height: =42
+        Text: ="Qualifies for rural DTS program"
+        Width: =270
+        X: =1016
+        Y: =481
+        ZIndex: =31
+
+    UnitsContainer As groupContainer.manualLayoutContainer:
+        Height: =53
+        Width: =390
+        X: =455
+        Y: =432
+        ZIndex: =32
+
+        UnitsBetween_MinIn As text:
+            BorderColor: =RGBA(214, 223, 238, 1)
+            BorderThickness: =1
+            Default: =UnitsMinIn
+            HintText: ="Enter Value"
+            OnChange: |
+                =Set(UnitsMinIn,Value(UnitsBetween_MinIn.Text));
+            Visible: =If(NoOfUnitsDrop.SelectedText.Value="Between",true,false)
+            Width: =124
+            X: =64
+            Y: =12
+            ZIndex: =7
+
+        UnitsBetween_MaxIn As text:
+            BorderThickness: =1
+            Default: =UnitsMaxIn
+            HintText: ="Enter Value"
+            OnChange: |
+                =Set(UnitsMaxIn,Value(UnitsBetween_MaxIn.Text));
+            Visible: =If(NoOfUnitsDrop.SelectedText.Value="Between",true,false)
+            Width: =129
+            X: =261
+            Y: =12
+            ZIndex: =8
+
+        UnitsMinLabel As label:
+            FontWeight: =FontWeight.Bold
+            Height: =47
+            Text: ="Min."
+            Visible: =If(NoOfUnitsDrop.SelectedText.Value="Between",true,false)
+            Width: =55
+            X: =9
+            Y: =6
+            ZIndex: =9
+
+        UnitsMaxLabel As label:
+            FontWeight: =FontWeight.Bold
+            Height: =47
+            Text: ="Max."
+            Visible: =If(NoOfUnitsDrop.SelectedText.Value="Between",true,false)
+            Width: =61
+            X: =200
+            Y: =6
+            ZIndex: =10
+
+        UnitsText_InLabel As label:
+            FontWeight: =FontWeight.Bold
+            Height: =42
+            Text: =If(NoOfUnitsDrop.SelectedText.Value="Equal","Units=",NoOfUnitsDrop.SelectedText.Value="GreaterThan","Units>",NoOfUnitsDrop.SelectedText.Value="LessThan","Units<")
+            Visible: =If(NoOfUnitsDrop.SelectedText.Value in "EqualGreaterThanLessThan",true,false )
+            Width: =74
+            X: =40
+            Y: =11
+            ZIndex: =11
+
+        UnitsText_In As text:
+            Default: =UnitsTextIn
+            HintText: ="Enter Value"
+            OnChange: |-
+                =Set(UnitsTextIn,Value(UnitsText_In.Text));
+                UpdateContext({UnitsTextclear:If(IsBlank(UnitsTextIn),false,true)})
+            Visible: =If(NoOfUnitsDrop.SelectedText.Value in "EqualGreaterThanLessThan",true,false )
+            Width: =159
+            X: =114
+            Y: =11
+            ZIndex: =12
+
+    YearBuilt As groupContainer.manualLayoutContainer:
+        Height: =53
+        Width: =390
+        X: =455
+        Y: =550
+        ZIndex: =34
+
+        YearsBetween_MinIn As text:
+            BorderColor: =RGBA(214, 223, 238, 1)
+            BorderThickness: =1
+            Default: =YearsMinIn
+            HintText: ="Enter Value"
+            OnChange: |
+                =Set(YearsMinIn,Value(YearsBetween_MinIn.Text));
+            Visible: =If(YearBuiltDrop.SelectedText.Value="Between",true,false)
+            Width: =124
+            X: =64
+            Y: =12
+            ZIndex: =1
+
+        YearsBetween_MaxIn As text:
+            BorderThickness: =1
+            Default: =YearsMaxIn
+            HintText: ="Enter Value"
+            OnChange: |
+                =Set(YearsMaxIn,Value(YearsBetween_MaxIn.Text));
+            Visible: =If(YearBuiltDrop.SelectedText.Value="Between",true,false)
+            Width: =129
+            X: =261
+            Y: =12
+            ZIndex: =2
+
+        YearMinLabel As label:
+            FontWeight: =FontWeight.Bold
+            Height: =47
+            Text: ="Min."
+            Visible: =If(YearBuiltDrop.SelectedText.Value="Between",true,false)
+            Width: =55
+            X: =9
+            Y: =6
+            ZIndex: =3
+
+        YearMaxLabel As label:
+            FontWeight: =FontWeight.Bold
+            Height: =47
+            Text: ="Max."
+            Visible: =If(YearBuiltDrop.SelectedText.Value="Between",true,false)
+            Width: =61
+            X: =200
+            Y: =6
+            ZIndex: =4
+
+        YearsText_InLabel As label:
+            FontWeight: =FontWeight.Bold
+            Height: =42
+            Text: =If(YearBuiltDrop.SelectedText.Value="Equal","Year=",YearBuiltDrop.SelectedText.Value="GreaterThan","Year>",YearBuiltDrop.SelectedText.Value="LessThan","Year<")
+            Visible: =If(YearBuiltDrop.SelectedText.Value in "EqualGreaterThanLessThan",true,false )
+            Width: =74
+            X: =40
+            Y: =11
+            ZIndex: =5
+
+        YearsText_In As text:
+            Default: =YearTextIn
+            HintText: ="Enter Value"
+            OnChange: |-
+                =Set(YearTextIn,Value(YearsText_In.Text));
+                UpdateContext({YearTextclear:If(IsBlank(YearTextIn),false,true)})
+            Visible: =If(YearBuiltDrop.SelectedText.Value in "EqualGreaterThanLessThan",true,false )
+            Width: =159
+            X: =114
+            Y: =11
+            ZIndex: =6
+
+    MSA As combobox:
+        DefaultSelectedItems: =MSAFilter
+        DisplayFields: =["Value"]
+        DisplayMode: =If(PropStateclear || PropCityclear || PropZipclear,DisplayMode.Disabled,DisplayMode.Edit)
+        Items: =["AddressA,Chennai","Address B,Hyderabad","Address C, Bengaluru","Address D,Delhi","Address E,Chennai","Address F,Mumbai"]
+        OnChange: |-
+            =If(varReset,
+            Set(MSAFilter,MSA.SelectedItems);
+            UpdateContext({MSAclear:If(IsEmpty(MSAFilter),false,true)});
+            Set(PropCityFilter,Blank());
+            Set(PropStateFilter,Blank());
+            Set(PropZipFilter,Blank());
+            );
+            Set(varReset,true);
+        SearchFields: =["Value"]
+        SearchItems: =Search(["AddressA,Chennai","Address B,Hyderabad","Address C, Bengaluru","Address D,Delhi","Address E,Chennai","Address F,Mumbai"],MSA.SearchText,Value)
+        X: =40
+        Y: =169
+        ZIndex: =35
+
+    PropertyState As combobox:
+        DefaultSelectedItems: =PropStateFilter
+        DisplayFields: =["Value"]
+        DisplayMode: =If(MSAclear,DisplayMode.Disabled,DisplayMode.Edit)
+        Items: =["TamilNadu","Maharashtra","Telangana","Karnataka","Delhi"]
+        OnChange: |-
+            =If(varReset,
+            Set(PropStateFilter,PropertyState.SelectedItems);
+            UpdateContext({PropStateclear:If(IsEmpty(PropStateFilter),false,true)});
+            );
+            Set(varReset,true);
+        SearchFields: =["Value"]
+        SearchItems: =Search(["TamilNadu","Maharashtra","Telangana","Karnataka","Delhi"],PropertyState.SearchText,Value)
+        X: =40
+        Y: =327
+        ZIndex: =36
+
+    PropertyCity As combobox:
+        DefaultSelectedItems: =PropCityFilter
+        DisplayFields: =["Value"]
+        DisplayMode: =If(MSAclear,DisplayMode.Disabled,DisplayMode.Edit)
+        Items: =["Chennai","Mumbai","Bengaluru","Delhi","Hyderabad"]
+        OnChange: |-
+            =If(varReset,
+            Set(PropCityFilter,PropertyCity.SelectedItems);
+            UpdateContext({PropCityclear:If(IsEmpty(PropCityFilter),false,true)});
+            );
+            Set(varReset,true);
+        OnSelect: =
+        SearchFields: =["Value"]
+        SearchItems: =Search(["Chennai","Mumbai","Bengaluru","Delhi","Hyderabad"],PropertyCity.SearchText,Value)
+        X: =40
+        Y: =445
+        ZIndex: =37
+
+    PropertyZip As combobox:
+        DefaultSelectedItems: =PropZipFilter
+        DisplayFields: =["Value"]
+        DisplayMode: =If(MSAclear,DisplayMode.Disabled,DisplayMode.Edit)
+        IsSearchable: =false
+        Items: =[600032,500001,100001,400001,300002]
+        OnChange: |-
+            =If(varReset,
+            Set(PropZipFilter,PropertyZip.SelectedItems);
+            UpdateContext({PropZipclear:If(IsEmpty(PropZipFilter),false,true)});
+            );
+            Set(varReset,true);
+        SearchFields: =[""]
+        SearchItems: =[]
+        X: =40
+        Y: =563
+        ZIndex: =38
+
+    "'Property SubType' As combobox":
+        DefaultSelectedItems: =PropSubTypeFilter
+        DisplayFields: =["Value"]
+        Items: =["SubTypeA","SubTypeB","SubTypeC","SubTypeD","SubTypeE"]
+        OnChange: |-
+            =If(varReset,
+            Set(PropSubTypeFilter,Self.SelectedItems);
+            UpdateContext({PropSubTypeclear:If(IsEmpty(PropSubTypeFilter),false,true)});
+            );
+            Set(varReset,true);
+        SearchFields: =["Value"]
+        SearchItems: =Search(["SubTypeA","SubTypeB","SubTypeC","SubTypeD","SubTypeE"],'Property SubType'.SearchText,Value)
+        X: =470
+        Y: =282
+        ZIndex: =40
+
+    MSAclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: |
+            =Set(varReset,false);
+            UpdateContext({MSAclear:false});
+            Reset(MSA);
+            Set(MSAFilter,Blank());
+        RadioSize: =10
+        Visible: =MSAclear
+        Width: =97
+        X: =274
+        Y: =125
+        ZIndex: =41
+
+    PropStateclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: |-
+            =Set(varReset,false);
+            UpdateContext({PropStateclear:false});
+            Reset(PropertyState);
+            Set(PropStateFilter,Blank());
+        RadioSize: =10
+        Visible: =PropStateclear
+        Width: =97
+        X: =271
+        Y: =282
+        ZIndex: =42
+
+    PropCityclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: |-
+            =Set(varReset,false);
+            UpdateContext({PropCityclear:false});
+            Reset(PropertyCity);
+            Set(PropCityFilter,Blank())
+        RadioSize: =10
+        Visible: =PropCityclear
+        Width: =97
+        X: =274
+        Y: =407
+        ZIndex: =43
+
+    PropertyZipclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: |-
+            =Set(varReset,false);
+            UpdateContext({PropZipclear:false});
+            Reset(PropertyZip);
+            Set(PropZipFilter,Blank());
+        RadioSize: =10
+        Visible: =PropZipclear
+        Width: =97
+        X: =281
+        Y: =526
+        ZIndex: =44
+
+    PropTypeclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: |-
+            =Set(varReset,false);
+            UpdateContext({PropertyTypeclear:false});
+            Reset(PropertyTypeDrop);
+            Set(PropertyTypeFilter,Blank());
+        RadioSize: =10
+        Visible: =PropertyTypeclear
+        Width: =97
+        X: =714
+        Y: =125
+        ZIndex: =45
+
+    PropSubTypeclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: |-
+            =Set(varReset,false);
+            UpdateContext({PropSubTypeclear:false});
+            Reset('Property SubType');
+            Set(PropSubTypeFilter,Blank());
+        RadioSize: =10
+        Visible: =PropSubTypeclear
+        Width: =97
+        X: =720
+        Y: =245
+        ZIndex: =46
+
+    NoOfUnitsclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: |-
+            =Reset(UnitsText_In);
+            Reset(UnitsBetween_MaxIn);
+            Reset(UnitsBetween_MinIn);
+            Set(UnitsTextIn,Blank());
+            Set(UnitsMaxIn,Blank());
+            Set(UnitsMinIn,Blank());
+            UpdateContext({UnitsTextclear:false});
+        RadioSize: =10
+        Visible: =!(IsBlank(UnitsMinIn)&&IsBlank(UnitsMaxIn)) || UnitsTextclear 
+        Width: =97
+        X: =845
+        Y: =439
+        ZIndex: =47
+
+    Yearclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: |-
+            =Reset(YearsText_In);
+            Reset(YearsBetween_MaxIn);
+            Reset(YearsBetween_MinIn);
+            Set(YearTextIn,Blank());
+            Set(YearsMaxIn,Blank());
+            Set(YearsMinIn,Blank());
+            UpdateContext({YearTextclear:false})
+        RadioSize: =10
+        Visible: =!(IsBlank(YearsMinIn)&&IsBlank(YearsMaxIn)) || YearTextclear 
+        Width: =97
+        X: =845
+        Y: =563
+        ZIndex: =48
+
+    ForSaleclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: =Reset(Sale);
+        RadioSize: =10
+        Visible: =Saleclear
+        Width: =97
+        X: =1195
+        Y: =141
+        ZIndex: =49
+
+    Affordableclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: =Reset(AffordableHouse)
+        RadioSize: =10
+        Width: =97
+        X: =1195
+        Y: =284
+        ZIndex: =50
+
+    Oppzoneclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: =OpportunityZone
+        RadioSize: =10
+        Width: =97
+        X: =1202
+        Y: =407
+        ZIndex: =51
+
+    DTSclear As radio:
+        Height: =68
+        Items: =["Clear"]
+        OnSelect: =Reset(DTSSelect)
+        RadioSize: =10
+        Width: =97
+        X: =1204
+        Y: =535
+        ZIndex: =52
+
+    Button4 As button:
+        OnSelect: |+
+            =Set(PropertyTable,Table(
+            {
+                MSA:MSAFilter,
+                PropertyCity:PropCityFilter,
+                PropertyState:PropStateFilter,
+                PropertyZipCode:PropZipFilter,
+                PropertyType:PropertyTypeFilter,
+                PropertySubType:PropSubTypeFilter,
+                UnitsCondition:NoOfUnitsDrop.SelectedText.Value,
+                UnitsValue:UnitsTextIn,
+               /* EqualValue: If(NoOfUnitsDrop.Selected.Value = "Equal", UnitsTextIn, ""),
+                GreaterThanValue: If(NoOfUnitsDrop.Selected.Value = "GreaterThan", UnitsTextIn, ""),
+                LessThanValue: If(NoOfUnitsDrop.Selected.Value = "LessThan", UnitsTextIn, ""),*/
+                BetweenMaxValue: If(NoOfUnitsDrop.Selected.Value = "Between", UnitsMaxIn, ""),
+                BetweenMinValue: If(NoOfUnitsDrop.Selected.Value = "Between", UnitsMinIn, ""),
+                YearsCondition:YearBuiltDrop.SelectedText.Value,
+                YearsValue:YearTextIn,
+                YearBetweenMax:If(YearBuiltDrop.Selected.Value = "Between", YearsMaxIn, ""),
+                YearBetweenMin:If(YearBuiltDrop.Selected.Value = "Between", YearsMinIn, ""),
+                PropertyIsForSale: Sale.Selected.Value,
+                AffordableHousing:AffordableHouse.Selected.Value,
+                OpportunityZone:OpportunityZone.Selected.Value,
+                DTS:DTSSelect.Selected.Value
+            }
+            ));
+            Patch(Saved,Defaults(Saved),{
+                SaveName:SavedFilterName.Text,
+                SearchContent: JSON(PropertyTable)
+            });
+            
+            
+        Text: ="Save"
+        X: =1035
+        Y: =655
+        ZIndex: =53
+
+    Button5 As button:
+        OnSelect: |-
+            =UpdateContext({MSAclear:false});
+            Reset(MSA);
+            Set(MSAFilter,Blank());
+            UpdateContext({PropStateclear:false});
+            Reset(PropertyState);
+            Set(PropStateFilter,Blank());
+            UpdateContext({PropCityclear:false});
+            Reset(PropertyCity);
+            Set(PropCityFilter,Blank());
+            UpdateContext({PropZipclear:false});
+            Reset(PropertyZip);
+            Set(PropZipFilter,Blank());
+            UpdateContext({PropertyTypeclear:false});
+            Reset(PropertyTypeDrop);
+            Set(PropertyTypeFilter,Blank());
+            UpdateContext({PropSubTypeclear:false});
+            Reset('Property SubType');
+            Set(PropSubTypeFilter,Blank());
+            Reset(UnitsText_In);
+            Reset(UnitsBetween_MaxIn);
+            Reset(UnitsBetween_MinIn);
+            Set(UnitsTextIn,Blank());
+            Set(UnitsMaxIn,Blank());
+            Set(UnitsMinIn,Blank());
+            UpdateContext({UnitsTextclear:false});
+            Reset(YearsText_In);
+            Reset(YearsBetween_MaxIn);
+            Reset(YearsBetween_MinIn);
+            Set(YearTextIn,Blank());
+            Set(YearsMaxIn,Blank());
+            Set(YearsMinIn,Blank());
+            UpdateContext({YearTextclear:false});
+            Reset(Sale);
+            Reset(AffordableHouse);
+            Reset(OpportunityZone);
+            Reset(DTSSelect);
+        Text: ="ClearAll"
+        X: =1036
+        Y: =722
+        ZIndex: =54
+
+    SavedFilterName As text:
+        Default: =""
+        Height: =41
+        HintText: ="Saved Filter Name"
+        Width: =200
+        X: =812
+        Y: =655
+        ZIndex: =55
+
+    PropertyTypeDrop As combobox:
+        DefaultSelectedItems: =PropertyTypeFilter
+        DisplayFields: =["Value"]
+        Items: =["TypeA","TypeB","TypeC","TypeD","TypeE"]
+        OnChange: |-
+            =If(varReset,
+            Set(PropertyTypeFilter,Self.SelectedItems);
+            UpdateContext({PropertyTypeclear:If(IsEmpty(PropertyTypeFilter),false,true)});
+            );
+            Set(varReset,true);
+        SearchFields: =["Value"]
+        SearchItems: =Search(["TypeA","TypeB","TypeC","TypeD","TypeE"],PropertyTypeDrop.SearchText,Value)
+        X: =470
+        Y: =169
+        ZIndex: =56
+
+    Button6 As button:
+        OnSelect: |-
+            =Set(UpdatePropertyTable,Table(
+            {
+                MSA:MSAFilter,
+                PropertyCity:PropCityFilter,
+                PropertyState:PropStateFilter,
+                PropertyZipCode:PropZipFilter,
+                PropertyType:PropertyTypeFilter,
+                PropertySubType:PropSubTypeFilter,
+                UnitsCondition:NoOfUnitsDrop.SelectedText.Value,
+                EqualValue: If(NoOfUnitsDrop.Selected.Value = "Equal", UnitsTextIn, ""),
+                GreaterThanValue: If(NoOfUnitsDrop.Selected.Value = "GreaterThan", UnitsTextIn, ""),
+                LessThanValue: If(NoOfUnitsDrop.Selected.Value = "LessThan", UnitsTextIn, ""),
+                BetweenMaxValue: If(NoOfUnitsDrop.Selected.Value = "Between", UnitsMaxIn, ""),
+                BetweenMinValue: If(NoOfUnitsDrop.Selected.Value = "Between", UnitsMinIn, ""),
+                PropertyIsForSale: Sale.Selected.Value,
+                AffordableHousing:AffordableHouse.Selected.Value,
+                OpportunityZone:OpportunityZone.Selected.Value,
+                DTS:DTSSelect.Selected.Value
+            }
+            ));
+            Patch(Saved,LookUp(Saved,ID=EditID),{
+                SearchContent: JSON(UpdatePropertyTable)
+            }
+            )
+        Text: ="Update"
+        X: =1206
+        Y: =655
+        ZIndex: =57
+

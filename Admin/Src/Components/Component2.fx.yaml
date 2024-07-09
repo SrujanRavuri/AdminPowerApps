@@ -1,0 +1,35 @@
+Component2 As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =640
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    TextInput6 As text:
+        Default: ="Text input"
+        Width: =190
+        X: =160
+        Y: =120
+        ZIndex: =1
+
+    Icon1 As icon.CalendarBlank:
+        Height: =40
+        Icon: =Icon.CalendarBlank
+        Width: =40
+        X: =386
+        Y: =120
+        ZIndex: =2
+
+    Gallery2 As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Height: =387
+        Items: =Sequence(42)
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateSize: =382
+        Width: =404
+        X: =84
+        Y: =158
+        ZIndex: =3
+

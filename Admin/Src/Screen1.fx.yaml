@@ -1,0 +1,93 @@
+Screen1 As screen:
+    OnVisible: |
+        =ClearCollect(Horgal,{Name:"Srujan",Department:"IT",Age:0,Subjects:0},{Name:"Yuvraj",Department:"CSE",Age:0,Subjects:0},{Name:"Rohit",Department:"ECE",Age:0,Subjects:0},{Name:"Kaviya",Department:"IT",Age:0,Subjects:0},{Name:"",Department:"CSE",Age:0,Subjects:0});
+
+    Gallery1 As gallery.galleryHorizontal:
+        DelayItemLoading: =true
+        Items: =Horgal
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateSize: =154
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+        Label1 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Department
+            X: =2
+            Y: =40
+            ZIndex: =1
+
+        Label2 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Name
+            X: =2
+            Y: =190
+            ZIndex: =2
+
+        Label3 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Age
+            X: =2
+            Y: =314
+            ZIndex: =4
+
+        TextInput2 As text:
+            Default: =
+            OnChange: |-
+                =If(!(ThisItem.Name in Concat(TextCol,Name,"~")),
+                Collect(TextCol,{
+                    Name:ThisItem.Name,
+                    Age: Value(TextInput2.Text)
+                }),
+                UpdateIf(TextCol,Name=ThisItem.Name,{Age:Value(TextInput2.Text)}))
+            OnSelect: =Select(Parent)
+            Width: =152
+            Y: =406
+            ZIndex: =5
+
+        TextInput1 As text:
+            Default: =
+            OnChange: |-
+                =If(!(ThisItem.Name in Concat(TextCol,Name,"~")),
+                Collect(TextCol,{
+                    Name:ThisItem.Name,
+                    Subjects: Value(TextInput1.Text)
+                }),
+                UpdateIf(TextCol,Name=ThisItem.Name,{Subjects:Value(TextInput1.Text)}))
+            OnSelect: =Select(Parent)
+            Width: =152
+            Y: =522
+            ZIndex: =6
+
+    Button1 As button:
+        OnSelect: |-
+            =If(
+                (CountRows(Horgal) > CountRows(Filter(TextCol,!IsBlank(Age)))) || (CountRows(Horgal) > CountRows(Filter(TextCol,!IsBlank(Subjects)))),
+                Notify(
+                    "Fill all the fields",
+                    NotificationType.Error
+                ),
+                UpdateIf(
+                    Horgal,
+                    Name = Horgal[@Name],
+                    {
+                        Age: (LookUp(
+                            TextCol,
+                            Name = Horgal[@Name]
+                        )).Age
+                    }
+                )
+            );
+        Text: ="Button"
+        X: =936
+        Y: =272
+        ZIndex: =2
+
+    Button2 As button:
+        OnSelect: =Clear(TextCol)
+        Text: ="ClearColect"
+        X: =936
+        Y: =399
+        ZIndex: =3
+

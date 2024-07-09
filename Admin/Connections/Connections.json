@@ -1,0 +1,58 @@
+{
+  "a13c3708-a1cb-4279-be2f-6b6e874ef3eb": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1686/1.0.1686.3695/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "a13c3708-a1cb-4279-be2f-6b6e874ef3eb"
+  },
+  "bc75f6c2-3f03-41b7-8de3-ba363bb57b1d": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write",
+      "providers/PowerPlatform.Governance/Operations/Delete"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1697/1.0.1697.3784/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://02tcw.sharepoint.com/sites/yuvaraj": {
+        "dataSources": {
+          "ConfigList": {
+            "tableName": "db5396bc-a696-4dce-b28b-f93dfc51846d"
+          },
+          "FieldMaster": {
+            "tableName": "d1332052-4152-4a2c-97c3-dec6ba3109ee"
+          },
+          "Saved": {
+            "tableName": "5369f9bf-6c1e-4cf1-93d7-c63323a73870"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "ConfigList",
+      "FieldMaster",
+      "Saved"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "bc75f6c2-3f03-41b7-8de3-ba363bb57b1d"
+  }
+}

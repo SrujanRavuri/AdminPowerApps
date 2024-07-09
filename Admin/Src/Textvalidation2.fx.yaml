@@ -1,0 +1,229 @@
+Textvalidation2 As screen:
+    OnVisible: |-
+        =Set(AgeError,false);
+        Set(SubjectsError,false);
+        Set(BtnScc, false);
+        Clear(TextColA);
+
+    Gallery1_1 As gallery.galleryHorizontal:
+        DelayItemLoading: =true
+        Height: =768
+        Items: =Horgal
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateSize: =159
+        Width: =1142
+        X: =14
+        ZIndex: =1
+
+        Label1_1 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Department
+            X: =2
+            Y: =40
+            ZIndex: =1
+
+        Label2_1 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Name
+            X: =2
+            Y: =190
+            ZIndex: =2
+
+        Label3_1 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Age
+            X: =2
+            Y: =314
+            ZIndex: =4
+
+        TextInput2_1 As text:
+            BorderColor: =If(IsBlank(TextInput2_1.Text) && AgeError,RGBA(255, 0, 0, 1),RGBA(0, 18, 107, 1))
+            Default: =""
+            OnChange: |-
+                =If(!(ThisItem.Name in Concat(TextColA,Name,"~")),
+                Collect(TextColA,{
+                    Name:ThisItem.Name,
+                    Age: Value(TextInput2_1.Text)
+                }),
+                UpdateIf(TextColA,Name=ThisItem.Name,{Age:Value(TextInput2_1.Text)}));
+                Set(BtnScc,false)
+            OnSelect: =Select(Parent)
+            Reset: =BtnScc
+            Width: =152
+            Y: =538
+            ZIndex: =5
+
+        TextInput1_1 As text:
+            BorderColor: =If(IsBlank(TextInput1_1.Text) && SubjectsError,RGBA(255, 0, 0, 1),RGBA(0, 18, 107, 1))
+            Default: =""
+            OnChange: |-
+                =If(!(ThisItem.Name in Concat(TextColA,Name,"~")),
+                Collect(TextColA,{
+                    Name:ThisItem.Name,
+                    Subjects: Value(TextInput1_1.Text)
+                }),
+                UpdateIf(TextColA,Name=ThisItem.Name,{Subjects:Value(TextInput1_1.Text)}));
+                Set(BtnScc,false)
+            OnSelect: =Select(Parent)
+            Reset: =BtnScc
+            Width: =152
+            Y: =678
+            ZIndex: =6
+
+        Label6 As label:
+            Color: =RGBA(255, 0, 0, 1)
+            Height: =20
+            OnSelect: =Select(Parent)
+            Text: =If(Value(TextInput2_1.Text)<0 || Value(TextInput2_1.Text)=0,"Value must be >0","Fill this field")
+            Visible: =(IsBlank(TextInput2_1.Text) && AgeError) || (!IsBlank(TextInput2_1.Text)&&Value(TextInput2_1.Text)<=0)
+            X: =2
+            Y: =518
+            ZIndex: =7
+
+        Label6_1 As label:
+            Color: =RGBA(255, 0, 0, 1)
+            Height: =20
+            OnSelect: =Select(Parent)
+            Text: =If(Value(TextInput1_1.Text)<0 || Value(TextInput1_1.Text)=0,"Value must be >0","Fill this field")
+            Visible: =(IsBlank(TextInput1_1.Text)&&SubjectsError)|| (!IsBlank(TextInput1_1.Text)&&Value(TextInput1_1.Text)<=0)
+            X: =1
+            Y: =658
+            ZIndex: =8
+
+        Label4 As label:
+            OnSelect: =Select(Parent)
+            Text: |-
+                =//If((ThisItem.Name in Concat(Horgal,Name,"~")),ThisItem.Subjects,0)
+                ThisItem.Subjects
+            Y: =416
+            ZIndex: =9
+
+    Button1_1 As button:
+        OnSelect: |
+            =If(CountRows(Horgal) > CountRows(
+                        Filter(
+                            TextColA,
+                            !IsBlank(Age)
+                        )
+                    )||CountRows(Horgal) > CountRows(
+                        Filter(
+                            TextColA,
+                            !IsBlank(Subjects)
+                        )
+                    ),
+                If(
+                    CountRows(Horgal) > CountRows(
+                        Filter(
+                            TextColA,
+                            !IsBlank(Age)
+                        )
+                    ),
+                    Set(
+                        AgeError,
+                        true
+                    )
+                );
+                If(
+                    CountRows(Horgal) > CountRows(
+                        Filter(
+                            TextColA,
+                            !IsBlank(Subjects)
+                        )
+                    ),
+                    Set(
+                        SubjectsError,
+                        true
+                    )
+                );
+                ,
+                Set(
+                    AgeError,
+                    false
+                );
+                Set(
+                    SubjectsError,
+                    false
+                );
+                Set(
+                    BtnScc,
+                    true
+                );
+                ForAll(
+                    TextColA,
+                    If(
+                        !(IsBlank(ThisRecord.Name)),
+                        UpdateIf(
+                            Horgal,
+                            Name = Horgal[@Name],
+                            {
+                                Age: (LookUp(
+                                    TextColA,
+                                    Name = Horgal[@Name]
+                                )).Age
+                            }
+                        );
+                        UpdateIf(
+                            Horgal,
+                            Name = Horgal[@Name],
+                            {
+                                Subjects: (LookUp(
+                                    TextColA,
+                                    Name = Horgal[@Name]
+                                )).Subjects
+                            }
+                        );
+                    )
+                );
+                Clear(TextColA)
+            );
+        Text: ="Button"
+        X: =1166
+        Y: =242
+        ZIndex: =2
+
+    Button2_1 As button:
+        OnSelect: =Clear(TextColA);
+        Text: ="ClearColect"
+        X: =1156
+        Y: =410
+        ZIndex: =3
+
+    DatePicker2 As datepicker:
+        X: =922
+        Y: =56
+        ZIndex: =4
+
+    TextInput3 As text:
+        Default: =DisplayDate
+        HintText: ="dd/mm/yyyy"
+        OnChange: =
+        OnSelect: =
+        X: =952
+        Y: =596
+        ZIndex: =5
+
+    Button3 As button:
+        OnSelect: |-
+            =/*If(
+                !IsBlank(TextInput3.Text),
+               // Len(TextInput3.Text) = 2 || Len(TextInput3.Text) = 5, // Checks if the length is 2 or 5 characters (after entering day and month)
+               //Set(DisplayDate,Concatenate(TextInput3.Text,"-")),
+               Set(DisplayDate,Text(DateValue(TextInput3.Text), "dd-mm-yyyy")),
+                TextInput3.Text // Keeps the input unchanged otherwise
+            );
+            
+            If(
+                Len(TextInput3.Text) = 10, // Checks if the length is 10 characters (complete date with slashes)
+                If(
+                    IsMatch(TextInput3.Text, "^\d{2}-\d{2}-\d{4}$"), // Checks if the input matches the pattern "DD/MM/YYYY"
+                    TextInput3.Text,
+                    Notify("Invalid Date Format",NotificationType.Error);
+                ) // If the input length is less than 10, use the default value
+            )
+            */
+            If(Len(TextInput3.Text)=8, Set(DisplayDate,Text(Date,"dd-mm-yyyy")))
+        Text: ="Button"
+        X: =1132
+        Y: =692
+        ZIndex: =6
+

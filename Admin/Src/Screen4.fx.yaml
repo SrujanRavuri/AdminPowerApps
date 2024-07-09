@@ -1,0 +1,422 @@
+Screen4 As screen:
+    OnVisible: |-
+        =ClearCollect(PieNew,AddColumns(PieChartSample,CitywithDensity,Concatenate(City,"(",Density,")")));
+        ClearCollect(
+            PieNew2,
+            {Entity: "CompanyA", UPB: Value(23000), LoanType: "A", Year: 2020, OwnerName: "Owner1"},
+            {Entity: "CompanyB", UPB: Value(45000), LoanType: "B", Year: 2019, OwnerName: "Owner2"},
+            {Entity: "CompanyC", UPB: Value(32000), LoanType: "A", Year: 2021, OwnerName: "Owner3"},
+            {Entity: "CompanyD", UPB: Value(28000), LoanType: "C", Year: 2020, OwnerName: "Owner4"},
+            {Entity: "CompanyE", UPB: Value(54000), LoanType: "B", Year: 2018, OwnerName: "Owner5"},
+            {Entity: "CompanyF", UPB: Value(37000), LoanType: "A", Year: 2021, OwnerName: "Owner6"},
+            {Entity: "CompanyG", UPB: Value(66000), LoanType: "C", Year: 2019, OwnerName: "Owner7"},
+            {Entity: "CompanyH", UPB: Value(21000), LoanType: "A", Year: 2020, OwnerName: "Owner8"},
+            {Entity: "CompanyI", UPB: Value(47000), LoanType: "B", Year: 2018, OwnerName: "Owner9"},
+            {Entity: "CompanyJ", UPB: Value(39000), LoanType: "D", Year: 2020, OwnerName: "Owner10"},
+            {Entity: "CompanyK", UPB: Value(22000), LoanType: "A", Year: 2021, OwnerName: "Owner11"},
+            {Entity: "CompanyL", UPB: Value(56000), LoanType: "B", Year: 2019, OwnerName: "Owner12"},
+            {Entity: "CompanyM", UPB: Value(31000), LoanType: "C", Year: 2021, OwnerName: "Owner13"},
+            {Entity: "CompanyN", UPB: Value(24000), LoanType: "A", Year: 2020, OwnerName: "Owner14"},
+            {Entity: "CompanyO", UPB: Value(47000), LoanType: "B", Year: 2018, OwnerName: "Owner15"},
+            {Entity: "CompanyP", UPB: Value(35000), LoanType: "A", Year: 2019, OwnerName: "Owner16"},
+            {Entity: "CompanyQ", UPB: Value(53000), LoanType: "C", Year: 2020, OwnerName: "Owner17"},
+            {Entity: "CompanyR", UPB: Value(26000), LoanType: "A", Year: 2021, OwnerName: "Owner18"},
+            {Entity: "CompanyS", UPB: Value(48000), LoanType: "B", Year: 2019, OwnerName: "Owner19"},
+            {Entity: "CompanyT", UPB: Value(41000), LoanType: "E", Year: 2020, OwnerName: "Owner20"},
+            {Entity: "CompanyU", UPB: Value(25000), LoanType: "D", Year: 2018, OwnerName: "Owner21"},
+            {Entity: "CompanyV", UPB: Value(47000), LoanType: "E", Year: 2021, OwnerName: "Owner22"},
+            {Entity: "CompanyW", UPB: Value(30000), LoanType: "E", Year: 2019, OwnerName: "Owner23"},
+            {Entity: "CompanyX", UPB: Value(35000), LoanType: "D", Year: 2020, OwnerName: "Owner24"},
+            {Entity: "CompanyY", UPB: Value(38000), LoanType: "D", Year: 2021, OwnerName: "Owner25"},
+            {Entity: "CompanyZ", UPB: Value(45000), LoanType: "E", Year: 2020, OwnerName: "Owner26"}
+        );
+        ClearCollect(
+            AggregatedCollection,
+            AddColumns(
+                GroupBy(
+                    PieNew2,
+                    LoanType,
+                    LoanTypeGroup
+                ),
+                TotalUPB,
+                Sum(LoanTypeGroup, UPB)
+            )
+        );
+        Set(VLoanType,Blank());
+
+    iconCalendar1 As icon.CalendarBlank:
+        Height: =40
+        Icon: =Icon.CalendarBlank
+        OnSelect: |-
+            =/*resets calendar view and date selection to today*/
+            Set(_dateSelected, Today());
+            Set(_calendarVisible,!_calendarVisible);
+            //If(!_calendarVisible,Set(_calendarVisible,true),Set(_calendarVisible,false));
+            Set(_firstDayOfMonth, DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days));
+            Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+            Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days))
+        TabIndex: =0
+        Tooltip: ="Reset selected date to today"
+        Width: =40
+        X: =386
+        Y: =493
+        ZIndex: =1
+
+    LblMonthSelected1 As label:
+        Align: =Align.Center
+        Height: =50
+        Size: =18
+        Text: =Text(_firstDayOfMonth, "mmmm yyyy")
+        Visible: =_calendarVisible
+        Width: =419
+        Wrap: =false
+        X: =386
+        Y: =168
+        ZIndex: =2
+
+    WeekdayGallery1 As gallery.WeekdayGallery:
+        AccessibleLabel: ="Days of the week"
+        Height: =45
+        Items: =Calendar.WeekdaysShort()
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =60
+        Visible: =_calendarVisible
+        Width: =420
+        X: =386
+        Y: =228
+        ZIndex: =3
+
+        Title1 As label:
+            Align: =Align.Center
+            Height: =WeekdayGallery1.TemplateHeight
+            OnSelect: =Select(Parent)
+            Size: =17 * WeekdayGallery1.TemplateWidth / 77
+            Text: =ThisItem.Value
+            Width: =WeekdayGallery1.TemplateWidth
+            Wrap: =false
+            X: =WeekdayGallery1.TemplateWidth / 2 - Self.Width / 2
+            Y: =WeekdayGallery1.TemplateHeight / 2 - Self.Height / 2
+            ZIndex: =1
+
+    MonthDayGallery1 As gallery.MonthDayGallery:
+        AccessibleLabel: ="Days of selected month"
+        Height: =462
+        Items: =Sequence(42)
+        Layout: =Layout.Vertical
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =75
+        Visible: =_calendarVisible
+        Width: =429
+        WrapCount: =7
+        X: =381
+        Y: =273
+        ZIndex: =4
+
+        Label5 As label:
+            OnSelect: =Select(Parent)
+            Text: =Day(DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days))
+            Width: =58.42857142857143
+            X: =2
+            Y: =16
+            ZIndex: =4
+
+    iconPrevMonth1 As icon.ChevronLeft:
+        Height: =50
+        Icon: =Icon.ChevronLeft
+        OnSelect: |-
+            =/*changes month view to previous month*/
+            Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, -1, TimeUnit.Months));
+            Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+            Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+            /*collects calendar events for all days in current month view. Updates _minDate to prevent duplicate data collection if user returns to this month view*/
+            If(_minDate > _firstDayOfMonth, Set(_minDate, _firstDayOfMonth)); 
+        PaddingBottom: =7
+        PaddingLeft: =7
+        PaddingRight: =7
+        PaddingTop: =7
+        TabIndex: =0
+        Tooltip: ="View previous month"
+        Visible: =_calendarVisible
+        Width: =59
+        X: =396
+        Y: =168
+        ZIndex: =5
+
+    iconNextMonth1 As icon.ChevronRight:
+        Height: =50
+        Icon: =Icon.ChevronRight
+        OnSelect: |-
+            =/*changes month view to next month*/
+            Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, 1, TimeUnit.Months));
+            Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+            /*collects calendar events for all days in current month view. Updates _maxDate to prevent duplicate data collection if user returns to this month view*/
+            Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+            If(_lastDayOfMonth > _maxDate, Set(_maxDate, _lastDayOfMonth+1)); 
+            /*Collect(MyCalendarEvents, Office365Outlook.GetEventsCalendarViewV2(_myCalendar.Name, Text
+            (_firstDayOfMonth, DateTimeFormat.UTC), Text(_maxDate, DateTimeFormat.UTC)).value))*/
+        PaddingBottom: =7
+        PaddingLeft: =7
+        PaddingRight: =7
+        PaddingTop: =7
+        TabIndex: =0
+        Tooltip: ="View next month"
+        Visible: =_calendarVisible
+        Width: =59
+        X: =736
+        Y: =168
+        ZIndex: =6
+
+    TextInput5 As text:
+        Default: =Text(_dateSelected,DateTimeFormat.ShortDate)
+        OnChange: |+
+            =//Set(_dateSelected,DateValue(TextInput5.Text));
+            Set(NewDate,Date(Mid(TextInput5.Text,5,4),Mid(TextInput5.Text,3,2),Mid(TextInput5.Text,1,2)));
+            Set(monthsdiff,DateDiff(_dateSelected,DateValue(NewDate),TimeUnit.Months));
+            /*If(
+                Len(TextInput5.Text) = 8,
+                Set(
+                    _dateSelected,DateValue(
+                    Left(TextInput5.Text, 2) & "/" &
+                    Mid(TextInput5.Text, 3, 2) & "/" &
+                    Right(TextInput5.Text, 4))
+                ),
+                Set(FormattedDate, "Invalid Input")
+            );*/
+            /*changes month view to next month*/
+            /*changes month view to next month*/
+            Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, 1, TimeUnit.Months));
+            Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+            /*collects calendar events for all days in current month view. Updates _maxDate to prevent duplicate data collection if user returns to this month view*/
+            Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+            If(_lastDayOfMonth > _maxDate, Set(_maxDate, _lastDayOfMonth)); 
+            
+        X: =40
+        Y: =493
+        ZIndex: =7
+
+    CompositePieChart1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =8
+
+        Title2 As label:
+            Align: =Align.Center
+            Height: =25
+            Text: ="Chart Title"
+            Width: =400
+            X: =40
+            Y: =40
+            ZIndex: =9
+
+        PieChart1 As pieChart:
+            Items: =Filter(AggregatedCollection,LoanType=VLoanType || IsBlank(VLoanType))
+            OnSelect: |-
+                =Set(Labelvisible,true);
+                Set(PopUpBgVis,true);
+                Set(FilteredCollection,Filter(PieNew2,LoanType=PieChart1.Selected.'data-ADB4D7A662F548B49FAC2B986E348A1BLoanType'))
+            X: =40
+            Y: =67
+            ZIndex: =10
+
+        Legend1 As legend:
+            Height: =200
+            ItemColorSet: =PieChart1.ItemColorSet
+            Items: =PieChart1.SeriesLabels
+            Size: =16
+            Visible: =!PopUpBgVis
+            Width: =400
+            X: =40
+            Y: =404
+            ZIndex: =11
+
+    FilteredLoanTypeCont As groupContainer.manualLayoutContainer:
+        Height: =254
+        Visible: =PopUpBgVis
+        Width: =410
+        X: =40
+        Y: =386
+        ZIndex: =13
+
+        FilteredLoanGallery As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: =145
+            Items: |-
+                =/*Sort(FilteredCollection, Switch(SortColumn, 
+                    "Entity", Entity, 
+                    "UPB", UPB), 
+                    SortDirection)*/
+                With({
+                    vDataShaped:ShowColumns(AddColumns(PieNew2,LoanCount,1),LoanType,UPB,LoanCount,Entity)
+                    },
+                    With({vDataGrouped:GroupBy(vDataShaped,LoanType,GroupedbyLoanType)},
+                    AddColumns(vDataGrouped,Sum,Sum(GroupedbyLoanType,LoanCount),SumUPB,Sum(GroupedbyLoanType,UPB),SUmLoans,Sum(GroupedbyLoanType,LoanCount))))
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            OnSelect: =
+            TemplateSize: =30
+            Width: =500
+            Y: =52
+            ZIndex: =1
+
+            EntityNameValue As label:
+                OnSelect: =Set(VLoanType,FilteredLoanGallery.Selected.LoanType)
+                Text: =ThisItem.SumUPB
+                ZIndex: =4
+
+            UPBValue As label:
+                OnSelect: =Select(Parent)
+                Text: =ThisItem.SUmLoans
+                X: =180
+                ZIndex: =5
+
+            LoanTypeValue As label:
+                OnSelect: =Select(Parent)
+                Text: =ThisItem.LoanType
+                X: =332
+                ZIndex: =6
+
+        Icon6 As icon.Cancel:
+            Height: =31
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =Set(PopUpBgVis,false);
+                Set(VLoanType,Blank())
+            Width: =28
+            X: =382
+            ZIndex: =2
+
+        EntityNameLabel As label:
+            FontWeight: =FontWeight.Bold
+            OnSelect: |-
+                =UpdateContext({SortColumn: "Entity", SortDirection: If(SortColumn = "Entity" && SortDirection = SortOrder.Ascending, SortOrder.Descending, SortOrder.Ascending)});
+            Text: ="Entity Name"
+            Y: =31
+            ZIndex: =3
+
+        UPBLabel As label:
+            FontWeight: =FontWeight.Bold
+            OnSelect: |
+                =UpdateContext({SortColumn: "UPB", SortDirection: If(SortColumn = "UPB" && SortDirection = SortOrder.Ascending, SortOrder.Descending, SortOrder.Ascending)});
+            Text: ="UPB"
+            Width: =80
+            X: =181
+            Y: =31
+            ZIndex: =4
+
+        LoanTypeLabel As label:
+            FontWeight: =FontWeight.Bold
+            OnSelect: =
+            Text: ="LoanType"
+            Width: =105
+            X: =305
+            Y: =31
+            ZIndex: =5
+
+        Group1 As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =40
+            ZIndex: =8
+
+            TotalUPB As label:
+                FontWeight: =FontWeight.Bold
+                Text: |-
+                    ="TotalUPB:"
+                Width: =100
+                Y: =214
+                ZIndex: =6
+
+            TotalUPBValue As label:
+                Text: ="$" & PieChart1.Selected.'data-ADB4D7A662F548B49FAC2B986E348A1BTotalUPB'
+                X: =92
+                Y: =214
+                ZIndex: =7
+
+    Gallery3 As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Items: =SortByColumns(Saved,"Created",SortOrder.Descending)
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateSize: =206
+        Width: =954
+        X: =396
+        Y: =34
+        ZIndex: =14
+
+        Label16 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.SaveName
+            X: =22
+            Y: =10
+            ZIndex: =1
+
+        Label17 As label:
+            Height: =204
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.SearchContent
+            Width: =543
+            X: =172
+            Y: =2
+            ZIndex: =2
+
+        Icon2 As icon.Edit:
+            Height: =39
+            Icon: =Icon.Edit
+            OnSelect: |-
+                =Set(Details,Table(ParseJSON(LookUp(Saved,ID=ThisItem.ID).SearchContent)));
+                ClearCollect(DetailsCollection,ForAll(Details,{
+                    MSA:ForAll(Table(Value.MSA),
+                    {Value:Text(Value.Value)}),
+                    PropCity:ForAll(Table(Value.PropertyCity),{
+                        Value:Text(Value.Value)
+                    }),
+                    PropState:ForAll(Table(Value.PropertyState),{
+                        Value:Text(Value.Value)
+                    }),
+                    PropZip:ForAll(Table(Value.PropertyZipCode),{
+                        Value:Value(Value.Value)
+                    }),
+                    PropType:ForAll(Table(Value.PropertyType),{
+                        Value:Text(Value.Value)
+                    }),
+                    PropSubType:ForAll(Table(Value.PropertySubType),{
+                        Value:Text(Value.Value)
+                    }),
+                    UnitCond:({Value:Text(Value.UnitsCondition)}),
+                    Unitsval:({Value:Value(Value.UnitsValue)}),
+                    MinValue:({Value:Value(Value.BetweenMinValue)}),
+                    MaxValue:({Value:Value(Value.BetweenMaxValue)}),
+                    YearsCond:({Value:Text(Value.YearsCondition)}),
+                    Yearsval:({Value:Value(Value.YearsValue)}),
+                    Yearsmin:({Value:Value(Value.YearBetweenMin)}),
+                    Yearsmax:({Value:Value(Value.YearBetweenMax)}),
+                    Propforsale:({Value:Text(Value.PropertyIsForSale)}),
+                    AffHousing:({Value:Text(Value.AffordableHousing)}),
+                    OppZone:({Value:Text(Value.OpportunityZone)}),
+                    DTSvalue:({Value:Text(Value.DTS)})
+                    }));
+                Set(MSAFilter,First(DetailsCollection).MSA);
+                Set(PropCityFilter,First(DetailsCollection).PropCity);
+                Set(PropStateFilter,First(DetailsCollection).PropState);
+                Set(PropZipFilter,First(DetailsCollection).PropZip);
+                Set(PropertyTypeFilter,First(DetailsCollection).PropType);
+                Set(PropSubTypeFilter,First(DetailsCollection).PropSubType);
+                Set(UnitsFilter,First(DetailsCollection).UnitCond);
+                If(UnitsFilter.Value= "Equal" || "GreaterThan" || "LessThan",Set(UnitsTextIn,First(DetailsCollection).Unitsval.Value),UnitsFilter.Value="Between",Set(UnitsMaxIn,First(DetailsCollection).MaxValue.Value));
+                Set(YearsFilter,First(DetailsCollection).YearsCond);
+                If(YearsFilter.Value= "Equal" || "GreaterThan" || "LessThan",Set(YearTextIn,First(DetailsCollection).Yearsval.Value),YearsFilter.Value="Between",Set(YearsMaxIn,First(DetailsCollection).Yearsmax.Value));Set(YearsMinIn,First(DetailsCollection).Yearsmin.Value);
+                Set(PropertyIsForsale,First(DetailsCollection).Propforsale);
+                Set(Affordablehousing,First(DetailsCollection).AffHousing);
+                Set(OpportunityZonevalue,First(DetailsCollection).OppZone);
+                Set(DTSvalue,First(DetailsCollection).DTSvalue);
+                Set(EditID,ThisItem.ID);
+                Navigate(Screen3);
+            Width: =44
+            X: =876
+            ZIndex: =3
+
