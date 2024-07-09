@@ -21,7 +21,7 @@ Screen1 As screen:
         YuvaLabel As label:
             OnSelect: =Select(Parent)
             Text: ="This is My Label"
-            X: =2
+            X: =20
             Y: =150
             ZIndex: =1
 
