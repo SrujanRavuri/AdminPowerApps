@@ -18,9 +18,9 @@ Screen1 As screen:
             Y: =40
             ZIndex: =1
 
-        YuvaLabel As label:
+        SrujanLabel As label:
             OnSelect: =Select(Parent)
-            Text: ="This is My Label"
+            Text: ="I'mPossible"
             X: =2
             Y: =40
             ZIndex: =1
