@@ -278,7 +278,7 @@ Screen3 As screen:
     YearBuilt As groupContainer.manualLayoutContainer:
         Height: =53
         Width: =390
-        X: =455
+        X: =456
         Y: =550
         ZIndex: =34
 
