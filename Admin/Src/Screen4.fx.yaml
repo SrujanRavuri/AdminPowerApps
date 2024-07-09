@@ -229,7 +229,7 @@ Screen4 As screen:
             Size: =16
             Visible: =!PopUpBgVis
             Width: =400
-            X: =50
+            X: =5
             Y: =4
             ZIndex: =11
 
