@@ -229,8 +229,8 @@ Screen4 As screen:
             Size: =16
             Visible: =!PopUpBgVis
             Width: =400
-            X: =40
-            Y: =404
+            X: =50
+            Y: =4
             ZIndex: =11
 
     FilteredLoanTypeCont As groupContainer.manualLayoutContainer:
