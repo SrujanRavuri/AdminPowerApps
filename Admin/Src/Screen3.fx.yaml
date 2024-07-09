@@ -36,7 +36,7 @@ Screen3 As screen:
         Y: =510
         ZIndex: =8
 
-    Label7 As label:
+    Label7change As label:
         FontWeight: =FontWeight.Bold
         Text: ="MSA"
         X: =40
