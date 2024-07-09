@@ -7,8 +7,8 @@ Screen1 As screen:
         Items: =Horgal
         LoadingSpinner: =LoadingSpinner.Data
         TemplateSize: =154
-        X: =40
-        Y: =40
+        X: =50
+        Y: =50
         ZIndex: =1
 
         YuvaLabel As label:
