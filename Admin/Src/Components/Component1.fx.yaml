@@ -15,7 +15,7 @@ Component1 As CanvasComponent:
         ZIndex: =1
 
     DatePicker1 As datepicker:
-        X: =40
-        Y: =40
+        X: =50
+        Y: =50
         ZIndex: =2
 
