@@ -17,6 +17,13 @@ Screen1 As screen:
             X: =2
             Y: =40
             ZIndex: =1
+        
+        YuvaLabel As label:
+            OnSelect: =Select(Parent)
+            Text: ="This is My Label"
+            X: =2
+            Y: =40
+            ZIndex: =1
 
         Label2 As label:
             OnSelect: =Select(Parent)
