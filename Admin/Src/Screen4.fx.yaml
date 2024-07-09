@@ -206,7 +206,7 @@ Screen4 As screen:
         Title2 As label:
             Align: =Align.Center
             Height: =25
-            Text: ="Chart Title"
+            Text: ="Chart Title,,,,."
             Width: =400
             X: =90
             Y: =23
