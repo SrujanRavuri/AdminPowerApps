@@ -11,11 +11,11 @@ Screen1 As screen:
         Y: =50
         ZIndex: =1
 
-        YuvaLabel1 As label:
+        Label1 As label:
             OnSelect: =Select(Parent)
-            Text: ="This is My Label"
-            X: =20
-            Y: =150
+            Text: =ThisItem.Department
+            X: =2
+            Y: =40
             ZIndex: =1
 
         YuvaLabel As label:
@@ -25,11 +25,11 @@ Screen1 As screen:
             Y: =150
             ZIndex: =1
 
-        Label1 As label:
+        YuvaLabel1 As label:
             OnSelect: =Select(Parent)
-            Text: =ThisItem.Department
-            X: =2
-            Y: =40
+            Text: ="This is My Label"
+            X: =20
+            Y: =150
             ZIndex: =1
 
         Label2 As label:
