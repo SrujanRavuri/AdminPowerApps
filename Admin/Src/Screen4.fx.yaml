@@ -203,15 +203,6 @@ Screen4 As screen:
         Y: =40
         ZIndex: =8
 
-        Title2 As label:
-            Align: =Align.Center
-            Height: =25
-            Text: ="Chart Title,,,,."
-            Width: =400
-            X: =90
-            Y: =23
-            ZIndex: =19
-
         PieChart1 As pieChart:
             Items: =Filter(AggregatedCollection,LoanType=VLoanType || IsBlank(VLoanType))
             OnSelect: |-
@@ -232,6 +223,15 @@ Screen4 As screen:
             X: =500
             Y: =41
             ZIndex: =11
+
+        Title2 As label:
+            Align: =Align.Center
+            Height: =25
+            Text: ="Chart Title,,,,."
+            Width: =400
+            X: =90
+            Y: =23
+            ZIndex: =19
 
     FilteredLoanTypeCont As groupContainer.manualLayoutContainer:
         Height: =254
