@@ -209,7 +209,7 @@ Email_Template As screen:
                     Reset(Radio_Status_ET);
                 );
                 
-                
+
             Text: ="Update"
             X: =764
             Y: =16
