@@ -401,7 +401,7 @@ Screen2 As screen:
                 Visible: =Parent.DisplayMode=DisplayMode.Edit
                 Width: =Parent.Width - 60
                 X: =30
-                Y: =DataCardValue6.Y + DataCardValue6.Height
+                Y: =//DataCardValue6.Y + DataCardValue6.Height
                 ZIndex: =3
 
             StarVisible6 As label:
