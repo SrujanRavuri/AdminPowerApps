@@ -194,7 +194,7 @@ Textvalidation2 As screen:
         ZIndex: =4
 
     TextInput3 As text:
-        Default: =DisplayDate
+        Default: =//DisplayDate
         HintText: ="dd/mm/yyyy"
         OnChange: =
         OnSelect: =
@@ -221,7 +221,7 @@ Textvalidation2 As screen:
                 ) // If the input length is less than 10, use the default value
             )
             */
-            If(Len(TextInput3.Text)=8, Set(DisplayDate,Text(Date,"dd-mm-yyyy")))
+            //If(Len(TextInput3.Text)=8, Set(DisplayDate,Text(Date,"dd-mm-yyyy")))
         Text: ="Button"
         X: =1132
         Y: =692
