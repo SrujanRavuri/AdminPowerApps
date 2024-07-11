@@ -71,6 +71,7 @@
       "longlivingcache": false,
       "mobilenativerendering": false,
       "nativecdsexperimental": true,
+      "offlineprofilegenerationemitscolumns": false,
       "onegrid": false,
       "optimizedforteamsmeeting": false,
       "packagemodernruntime": false,
@@ -117,13 +118,13 @@
     "InstrumentationKey": "",
     "LocalDatabaseReferences": "",
     "ManualOfflineProfileId": "",
-    "Name": "Admin",
+    "Name": "Rohit_Admin",
     "OriginatingVersion": "1.338",
     "ParserErrorCount": 0,
     "ShowStatusBar": false
   },
   "PublishInfo": {
-    "AppName": "Admin",
+    "AppName": "Rohit_Admin",
     "BackgroundColor": "RGBA(0,176,240,1)",
     "IconColor": "RGBA(255,255,255,1)",
     "IconName": "Edit",
