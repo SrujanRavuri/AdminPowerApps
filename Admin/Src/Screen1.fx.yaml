@@ -111,7 +111,7 @@ Screen1 As screen:
         ZIndex: =4
 
     Label7 As label:
-        Text: ="Rohit branch"
+        Text: ="Rohit branch 1"
         X: =40
         Y: =40
         ZIndex: =5
