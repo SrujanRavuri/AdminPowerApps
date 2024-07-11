@@ -105,3 +105,8 @@ Screen1 As screen:
         Y: =399
         ZIndex: =3
 
+    DatePicker3 As datepicker:
+        X: =822
+        Y: =90
+        ZIndex: =4
+
