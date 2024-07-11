@@ -25,7 +25,7 @@ Screen1 As screen:
             Y: =150
             ZIndex: =1
 
-        YuvaLabel1 As label:
+        YuvaLabeledited As label:
             OnSelect: =Select(Parent)
             Text: ="This is My Label"
             X: =20
