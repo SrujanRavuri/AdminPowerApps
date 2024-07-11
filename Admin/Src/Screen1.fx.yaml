@@ -28,8 +28,8 @@ Screen1 As screen:
         YuvaLabeledited As label:
             OnSelect: =Select(Parent)
             Text: ="This is My Label"
-            X: =20
-            Y: =150
+            X: =4
+            Y: =95
             ZIndex: =1
 
         Label2 As label:
@@ -104,4 +104,9 @@ Screen1 As screen:
         X: =936
         Y: =399
         ZIndex: =3
+
+    DatePicker3 As datepicker:
+        X: =822
+        Y: =90
+        ZIndex: =4
 
