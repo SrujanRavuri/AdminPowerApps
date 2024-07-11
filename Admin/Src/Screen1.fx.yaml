@@ -210,7 +210,7 @@ Screen1 As screen:
                 Width: =Parent.Width - 60
                 Wrap: =false
                 X: =51
-                Y: =65
+                Y: =10
                 ZIndex: =1
 
             DataCardValue7 As text:
@@ -227,7 +227,7 @@ Screen1 As screen:
                 Tooltip: =Parent.DisplayName
                 Width: =Parent.Width - 60
                 X: =30
-                Y: =DataCardKey8.Y + DataCardKey8.Height + 5
+                Y: =48
                 ZIndex: =2
 
             ErrorMessage8 As label:
