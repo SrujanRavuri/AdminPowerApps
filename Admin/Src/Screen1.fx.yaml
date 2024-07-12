@@ -106,9 +106,9 @@ Screen1 As screen:
         ZIndex: =3
 
     DatePicker3 As datepicker:
-        DefaultDate: =Today()+1
+        DefaultDate: =Today()+3
         X: =936
-        Y: =202
+        Y: =122
         ZIndex: =4
 
     Label7 As label:
