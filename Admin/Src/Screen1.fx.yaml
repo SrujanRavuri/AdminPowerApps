@@ -94,8 +94,8 @@ Screen1 As screen:
                 )
             );
         Text: ="Button"
-        X: =936
-        Y: =272
+        X: =1144
+        Y: =260
         ZIndex: =2
 
     Button2 As button:
