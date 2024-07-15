@@ -1,4 +1,5 @@
 Screen3 As screen:
+    Fill: =Color.White 
     OnVisible: |-
         =Set(varReset,true);
         UpdateContext({MSAclear:If(IsBlank(MSAFilter),false,true),PropStateclear:If(IsBlank(PropStateFilter),false,true),PropCityclear:If(IsBlank(PropCityFilter),false,true),PropZipclear:If(IsBlank(PropZipFilter),false,true),PropertyTypeclear:If(IsBlank(PropertyTypeFilter),false,true),PropSubTypeclear:If(IsBlank(PropSubTypeFilter),false,true),UnitsTextclear:If(IsBlank(UnitsTextIn),false,true),YearTextclear:If(IsBlank(YearTextIn),false,true)});
@@ -36,7 +37,7 @@ Screen3 As screen:
         Y: =510
         ZIndex: =8
 
-    Label7 As label:
+    Label7change As label:
         FontWeight: =FontWeight.Bold
         Text: ="MSA"
         X: =40
@@ -278,7 +279,7 @@ Screen3 As screen:
     YearBuilt As groupContainer.manualLayoutContainer:
         Height: =53
         Width: =390
-        X: =455
+        X: =456
         Y: =550
         ZIndex: =34
 
