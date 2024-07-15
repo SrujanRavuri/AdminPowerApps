@@ -6,6 +6,12 @@ Screen2 As screen:
         Y: =50
         ZIndex: =1
 
+    RohitTextInput As text:
+        Default: ="Rohit Mass input"
+        X: =100
+        Y: =150
+        ZIndex: =1
+
     TextInput7 As text:
         Default: ="Text input"
         OnChange: |-
