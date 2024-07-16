@@ -1,5 +1,4 @@
 Screen2 As screen:
-
     TextInput4 As text:
         Default: ="Text input"
         X: =50
@@ -16,7 +15,7 @@ Screen2 As screen:
         Default: ="Text input"
         OnChange: |-
             =Set(Input,Text(Self.Text,"0#/##/####"));
-            
+
             /*Set(currentYear,Mid(Input,7,4));
             Set(currentDay,Mid(Input,4,2));
             Set(currentMonth,Mid(Input,1,2));*/
@@ -419,4 +418,3 @@ Screen2 As screen:
                 Wrap: =false
                 Y: =DataCardKey6.Y
                 ZIndex: =4
-
