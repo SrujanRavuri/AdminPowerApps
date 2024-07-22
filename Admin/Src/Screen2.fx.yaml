@@ -7,7 +7,7 @@ Screen2 As screen:
         ZIndex: =1
 
     RohitTextInput As text:
-        Default: ="Rohit Mass input"
+        Default: ="Rohit Mass input another input"
         X: =140
         Y: =260
         ZIndex: =1
