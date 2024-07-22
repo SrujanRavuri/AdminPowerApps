@@ -25,19 +25,19 @@ Screen1 As screen:
             Y: =95
             ZIndex: =1
 
-        YuvaLabel As label:
-            OnSelect: =Select(Parent)
-            Text: ="I'mPossible"
-            X: =2
-            Y: =150
-            ZIndex: =1
-
         SrujanLabel As label:
             Height: =75
             OnSelect: =Select(Parent)
             Text: ="Hi Srujan A new change has occured"
             X: =4
             Y: =252
+            ZIndex: =1
+
+        YuvaLabel As label:
+            OnSelect: =Select(Parent)
+            Text: ="I'mPossible"
+            X: =2
+            Y: =150
             ZIndex: =1
 
         Label2 As label:
