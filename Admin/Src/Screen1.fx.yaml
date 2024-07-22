@@ -126,7 +126,7 @@ Screen1 As screen:
         ZIndex: =5
 
     Label20 As label:
-        Text: ="Label added from PowerApps"
+        Text: ="Label updated from VScode"
         X: =295
         Y: =40
         ZIndex: =6
