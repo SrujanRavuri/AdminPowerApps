@@ -25,18 +25,19 @@ Screen1 As screen:
             Y: =95
             ZIndex: =1
 
-        SrujanLabel As label:
-            OnSelect: =Select(Parent)
-            Text: ="Hi Srujan A new change has occured"
-            X: =7
-            Y: =100
-            ZIndex: =1
-
         YuvaLabel As label:
             OnSelect: =Select(Parent)
             Text: ="I'mPossible"
             X: =2
             Y: =150
+            ZIndex: =1
+
+        SrujanLabel As label:
+            Height: =75
+            OnSelect: =Select(Parent)
+            Text: ="Hi Srujan A new change has occured"
+            X: =4
+            Y: =252
             ZIndex: =1
 
         Label2 As label:
@@ -123,4 +124,10 @@ Screen1 As screen:
         X: =40
         Y: =40
         ZIndex: =5
+
+    Label20 As label:
+        Text: ="Label added from PowerApps"
+        X: =295
+        Y: =40
+        ZIndex: =6
 
