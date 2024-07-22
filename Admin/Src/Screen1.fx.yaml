@@ -17,7 +17,7 @@ Screen1 As screen:
             X: =2
             Y: =40
             ZIndex: =1
-        
+
         SrujanLabel As label:
             OnSelect: =Select(Parent)
             Text: ="Hi Srujan"
@@ -123,4 +123,3 @@ Screen1 As screen:
         X: =40
         Y: =40
         ZIndex: =5
-
