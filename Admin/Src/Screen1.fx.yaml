@@ -25,18 +25,18 @@ Screen1 As screen:
             Y: =95
             ZIndex: =1
 
-        YuvaLabel As label:
-            OnSelect: =Select(Parent)
-            Text: ="I'mPossible"
-            X: =2
-            Y: =150
-            ZIndex: =1
-
         SrujanLabel As label:
             OnSelect: =Select(Parent)
             Text: ="Hi Srujan"
             X: =7
             Y: =100
+            ZIndex: =1
+
+        YuvaLabel As label:
+            OnSelect: =Select(Parent)
+            Text: ="I'mPossible"
+            X: =2
+            Y: =150
             ZIndex: =1
 
         Label2 As label:
