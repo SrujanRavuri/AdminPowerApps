@@ -82,6 +82,7 @@ Screen1 As screen:
             ZIndex: =6
 
     Button1 As button:
+        
         OnSelect: |-
             =If(
                 (CountRows(Horgal) > CountRows(Filter(TextCol,!IsBlank(Age)))) || (CountRows(Horgal) > CountRows(Filter(TextCol,!IsBlank(Subjects)))),
@@ -107,13 +108,13 @@ Screen1 As screen:
 
     Button2 As button:
         OnSelect: =Clear(TextCol)
-        Text: ="ClearColect"
+        Text: ="ClearCollect"
         X: =936
         Y: =399
         ZIndex: =3
 
     DatePicker3 As datepicker:
-        DefaultDate: =Today()+3
+        DefaultDate: =Today() + 3
         X: =936
         Y: =122
         ZIndex: =4
