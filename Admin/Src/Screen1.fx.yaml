@@ -27,7 +27,7 @@ Screen1 As screen:
 
         SrujanLabel As label:
             OnSelect: =Select(Parent)
-            Text: ="Hi Srujan"
+            Text: ="Hi Srujan A new change has occured"
             X: =7
             Y: =100
             ZIndex: =1
