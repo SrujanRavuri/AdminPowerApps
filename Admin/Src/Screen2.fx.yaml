@@ -1,4 +1,5 @@
 Screen2 As screen:
+
     TextInput4 As text:
         Default: ="Text input"
         X: =50
@@ -7,8 +8,8 @@ Screen2 As screen:
 
     RohitTextInput As text:
         Default: ="Rohit Mass input"
-        X: =100
-        Y: =150
+        X: =140
+        Y: =260
         ZIndex: =1
 
     TextInput7 As text:
@@ -237,5 +238,4 @@ Screen2 As screen:
                 Wrap: =false
                 Y: =DataCardKey3.Y
                 ZIndex: =4
-
 
